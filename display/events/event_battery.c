@@ -1,0 +1,52 @@
+#include "event_battery.h"
+#include "display/widgets/widget_battery.h"
+#include "display/screens/screen_layouts.h"
+
+#if IS_ZMK
+#include <zmk/events/battery_state_changed.h>
+#include <zmk/battery.h>
+
+static int battery_listener(const zmk_event_t *eh) {
+    uint8_t percentage = zmk_battery_state_of_charge();
+    bool charging = zmk_battery_is_charging();
+    widget_battery_update(percentage, charging);
+    screen_set_needs_redraw();
+    return ZMK_EV_EVENT_BUBBLE;
+}
+
+ZMK_LISTENER(battery_listener, battery_listener);
+ZMK_SUBSCRIPTION(battery_listener, zmk_battery_state_changed);
+
+void event_battery_init(void) {
+    // Initialize with current state
+    uint8_t percentage = zmk_battery_state_of_charge();
+    bool charging = zmk_battery_is_charging();
+    widget_battery_init(percentage, charging);
+}
+#else
+#include <lvgl.h>
+
+static uint8_t sim_battery = 100;
+static bool sim_charging = false;
+
+static void sim_battery_timer_cb(lv_timer_t *timer) {
+    if (sim_charging) {
+        sim_battery += 5;
+        if (sim_battery >= 100) {
+            sim_battery = 100;
+            sim_charging = false;
+        }
+    } else {
+        // Draining: decrease by 2% per tick
+        if (sim_battery > 0) sim_battery -= 2;
+        if (sim_battery <= 20) sim_charging = true;  
+    }
+    widget_battery_update(sim_battery, sim_charging);
+    screen_set_needs_redraw();
+}
+
+void event_battery_init(void) {
+    widget_battery_init(100, false);
+    lv_timer_create(sim_battery_timer_cb, 1000, NULL);
+}
+#endif

@@ -1,0 +1,8 @@
+file_format: "1"
+id: nice_custom
+name: nice!custom
+type: shield
+url: https://github.com/haerttrich/zmk-nice-custom
+requires: [nice_view_adapter]
+features:
+  - display

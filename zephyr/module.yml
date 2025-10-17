@@ -1,0 +1,4 @@
+name: "nice!custom"
+build:
+  settings:
+    board_root: .

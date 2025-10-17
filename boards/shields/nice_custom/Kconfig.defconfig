@@ -1,0 +1,44 @@
+if SHIELD_NICE_CUSTOM
+
+# LVGL display settings
+config LV_Z_VDB_SIZE
+    default 100
+
+config LV_DPI_DEF
+    default 161
+
+config LV_Z_BITS_PER_PIXEL
+    default 1
+
+choice LV_COLOR_DEPTH
+    default LV_COLOR_DEPTH_1
+endchoice
+
+config LV_Z_MEM_POOL_SIZE
+    default 16384  
+
+# Display work queue
+choice ZMK_DISPLAY_WORK_QUEUE
+    default ZMK_DISPLAY_WORK_QUEUE_DEDICATED
+endchoice
+
+# Use custom status screen
+choice ZMK_DISPLAY_STATUS_SCREEN
+    default ZMK_DISPLAY_STATUS_SCREEN_CUSTOM
+endchoice
+
+config ZMK_DISPLAY_STATUS_SCREEN_CUSTOM
+    imply NICE_VIEW_WIDGET_STATUS
+
+config NICE_VIEW_WIDGET_STATUS
+    select LV_USE_LABEL      
+    select LV_USE_IMG 
+    select LV_USE_CANVAS       
+
+# Optional: Enable WPM tracking if using WPM widget
+if !ZMK_SPLIT || ZMK_SPLIT_ROLE_CENTRAL
+config NICE_VIEW_WIDGET_STATUS
+    select ZMK_WPM
+endif
+
+endif # SHIELD_NICE_CUSTOM
