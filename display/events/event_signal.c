@@ -4,18 +4,21 @@
 #include "display/screens/screen_layouts.h"
 
 #if IS_ZMK
+#include <zmk/events/endpoint_changed.h>
 #include <zmk/events/ble_active_profile_changed.h>
 #include <zmk/ble.h>
+#include <zmk/usb.h>
+#include <zmk/endpoints.h>
 
-static int usb_listener(const zmk_event_t *eh) {
-    bool connected = zmk_usb_is_powered();
-    widget_signal_update_usb(connected);
+static int endpoint_listener(const zmk_event_t *eh) {
+    bool usb_active = (zmk_endpoints_selected() == ZMK_ENDPOINT_USB);
+    widget_signal_update_usb(usb_active);
     screen_set_needs_redraw();
     return ZMK_EV_EVENT_BUBBLE;
 }
 
-ZMK_LISTENER(usb_listener, usb_listener);
-ZMK_SUBSCRIPTION(usb_listener, zmk_usb_conn_state_changed);
+ZMK_LISTENER(endpoint_listener, endpoint_listener);
+ZMK_SUBSCRIPTION(endpoint_listener, zmk_endpoint_changed);
 
 static int ble_listener(const zmk_event_t *eh) {
     bool connected = zmk_ble_active_profile_is_connected();
@@ -39,7 +42,7 @@ ZMK_LISTENER(device_listener, device_listener);
 ZMK_SUBSCRIPTION(device_listener, zmk_ble_active_profile_changed);
 
 void event_signal_init(void) {
-    bool usb_active = zmk_usb_is_powered();
+    bool usb_active = (zmk_endpoints_selected() == ZMK_ENDPOINT_USB);
     bool connected = zmk_ble_active_profile_is_connected();
     uint8_t device = 1;
     widget_signal_init(usb_active, connected, device);

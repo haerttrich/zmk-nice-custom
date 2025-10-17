@@ -9,8 +9,7 @@
 
 static int battery_listener(const zmk_event_t *eh) {
     uint8_t percentage = zmk_battery_state_of_charge();
-    bool charging = zmk_battery_is_charging();
-    widget_battery_update(percentage, charging);
+    widget_battery_update(percentage, false);
     screen_set_needs_redraw();
     return ZMK_EV_EVENT_BUBBLE;
 }
@@ -19,10 +18,8 @@ ZMK_LISTENER(battery_listener, battery_listener);
 ZMK_SUBSCRIPTION(battery_listener, zmk_battery_state_changed);
 
 void event_battery_init(void) {
-    // Initialize with current state
     uint8_t percentage = zmk_battery_state_of_charge();
-    bool charging = zmk_battery_is_charging();
-    widget_battery_init(percentage, charging);
+    widget_battery_init(percentage, false);
 }
 #else
 #include <lvgl.h>
