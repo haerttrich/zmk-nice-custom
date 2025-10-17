@@ -1,4 +1,4 @@
-#include "display/event_signal.h"
+#include "display/events/event_signal.h"
 #include "display/common.h"
 #include "display/widgets/widget_signal.h"
 #include "display/screens/screen_layouts.h"

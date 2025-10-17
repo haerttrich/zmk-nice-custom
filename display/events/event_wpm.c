@@ -1,4 +1,4 @@
-#include "display/event_wpm.h"
+#include "display/events/event_wpm.h"
 #include "display/common.h"
 #include "display/widgets/widget_wpm.h"
 #include "display/screens/screen_layouts.h"
