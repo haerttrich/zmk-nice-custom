@@ -1,4 +1,5 @@
-#include "event_battery.h"
+#include "display/event_battery.h"
+#include "display/common.h"
 #include "display/widgets/widget_battery.h"
 #include "display/screens/screen_layouts.h"
 

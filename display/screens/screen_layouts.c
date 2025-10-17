@@ -1,7 +1,6 @@
 #include "screen_layouts.h"
-
-#include "display/display_config.h"
 #include "display/common.h"
+#include "display/display_config.h"
 
 #include "display/widgets/widget_layer.h"
 #include "display/widgets/widget_battery.h"

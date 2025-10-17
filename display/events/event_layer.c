@@ -1,4 +1,5 @@
-#include "event_layer.h"
+#include "display/event_layer.h"
+#include "display/common.h"
 #include "display/widgets/widget_layer.h"
 #include "display/screens/screen_layouts.h"
 
