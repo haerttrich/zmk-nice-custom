@@ -4,6 +4,7 @@
 #include "display/screens/screen_layouts.h"
 
 #if IS_ZMK
+/*
 #if !IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 
 #include <zmk/events/ble_active_profile_changed.h>
@@ -60,7 +61,10 @@ void event_signal_init(void) {
     widget_signal_init(usb_active, connected, device + 1);
 }
 
-#endif
+#endif */
+void event_signal_init(void) {
+    widget_signal_init(false, true, 1);
+}
 #else
 #include <lvgl.h>
 

@@ -4,6 +4,7 @@
 #include "display/screens/screen_layouts.h"
 
 #if IS_ZMK && defined(CONFIG_ZMK_WPM)
+/*
 #include <zmk/events/wpm_state_changed.h>
 
 static int wpm_listener(const zmk_event_t *eh) {
@@ -19,6 +20,9 @@ ZMK_SUBSCRIPTION(wpm_listener, zmk_wpm_state_changed);
 
 void event_wpm_init(void) {
     widget_wpm_init(0);
+} */
+void event_wpm_init(void) {
+    widget_wpm_init(80);
 }
 #else
 #include <lvgl.h>

@@ -4,6 +4,7 @@
 #include "display/screens/screen_layouts.h"
 
 #if IS_ZMK
+/*
 #include <zmk/events/battery_state_changed.h>
 #include <zmk/battery.h>
 
@@ -20,7 +21,11 @@ ZMK_SUBSCRIPTION(battery_listener, zmk_battery_state_changed);
 void event_battery_init(void) {
     uint8_t percentage = zmk_battery_state_of_charge();
     widget_battery_init(percentage);
+} */
+void event_battery_init(void) {
+    widget_battery_init(75);
 }
+
 #else
 #include <lvgl.h>
 

@@ -4,6 +4,7 @@
 #include "display/screens/screen_layouts.h"
 
 #if IS_ZMK
+/*
 #include <zmk/events/layer_state_changed.h>
 #include <zmk/keymap.h>
 
@@ -21,6 +22,9 @@ ZMK_SUBSCRIPTION(layer_listener, zmk_layer_state_changed);
 void event_layer_init(void) {
     uint8_t current_layer = zmk_keymap_highest_layer_active();
     widget_layer_indicator_init(current_layer);
+} */
+void event_layer_init(void) {
+    widget_layer_indicator_init(0);
 }
 #else
 #include <lvgl.h>
