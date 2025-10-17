@@ -4,6 +4,8 @@
 #include "display/screens/screen_layouts.h"
 
 #if IS_ZMK
+#if !IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
+
 #include <zmk/events/ble_active_profile_changed.h>
 #include <zmk/ble.h>
 
@@ -38,8 +40,7 @@ ZMK_SUBSCRIPTION(ble_listener, zmk_ble_active_profile_changed);
 
 // BLE profile/device listener  
 static int device_listener(const zmk_event_t *eh) {
-    const struct zmk_ble_active_profile_changed *ev = as_zmk_ble_active_profile_changed(eh);
-    uint8_t device = ev->profile; 
+    uint8_t device = zmk_ble_active_profile_index();
     widget_signal_update_device(device + 1);
     screen_set_needs_redraw();
     return ZMK_EV_EVENT_BUBBLE;
@@ -55,9 +56,11 @@ void event_signal_init(void) {
     bool usb_active = false;
 #endif
     bool connected = zmk_ble_active_profile_is_connected();
-    uint8_t device = 1;
-    widget_signal_init(usb_active, connected, device);
+    uint8_t device = zmk_ble_active_profile_index();
+    widget_signal_init(usb_active, connected, device + 1);
 }
+
+#endif
 #else
 #include <lvgl.h>
 
