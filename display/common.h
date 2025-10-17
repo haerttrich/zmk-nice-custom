@@ -5,10 +5,10 @@
     // ZMK environment
     #define IS_ZMK 1
     // keyboard side
-    #ifdef ZMK_SPLIT
-        #define LEFT_DISPLAY ZMK_SPLIT_ROLE_CENTRAL
-    #else
+    #if !IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
         #define LEFT_DISPLAY 1
+    #else
+        #define LEFT_DISPLAY 0
     #endif
     #include <zephyr/kernel.h>
     #include <lvgl.h>
