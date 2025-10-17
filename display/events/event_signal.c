@@ -5,9 +5,7 @@
 
 #if IS_ZMK
 #include <zmk/events/ble_active_profile_changed.h>
-#include <zmk/events/endpoint_selection_changed.h>
 #include <zmk/ble.h>
-#include <zmk/endpoints.h>
 
 #if IS_ENABLED(CONFIG_USB_DEVICE_STACK)
 #include <zmk/events/usb_conn_state_changed.h>
@@ -38,7 +36,7 @@ static int ble_listener(const zmk_event_t *eh) {
 ZMK_LISTENER(ble_listener, ble_listener);
 ZMK_SUBSCRIPTION(ble_listener, zmk_ble_active_profile_changed);
 
-// BLE profile/device listener
+// BLE profile/device listener  
 static int device_listener(const zmk_event_t *eh) {
     const struct zmk_ble_active_profile_changed *ev = as_zmk_ble_active_profile_changed(eh);
     uint8_t device = ev->profile; 
