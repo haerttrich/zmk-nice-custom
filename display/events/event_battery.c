@@ -9,7 +9,7 @@
 
 static int battery_listener(const zmk_event_t *eh) {
     uint8_t percentage = zmk_battery_state_of_charge();
-    widget_battery_update(percentage, false);
+    widget_battery_update(percentage);
     screen_set_needs_redraw();
     return ZMK_EV_EVENT_BUBBLE;
 }
@@ -19,27 +19,19 @@ ZMK_SUBSCRIPTION(battery_listener, zmk_battery_state_changed);
 
 void event_battery_init(void) {
     uint8_t percentage = zmk_battery_state_of_charge();
-    widget_battery_init(percentage, false);
+    widget_battery_init(percentage);
 }
 #else
 #include <lvgl.h>
 
 static uint8_t sim_battery = 100;
-static bool sim_charging = false;
 
 static void sim_battery_timer_cb(lv_timer_t *timer) {
-    if (sim_charging) {
-        sim_battery += 5;
-        if (sim_battery >= 100) {
-            sim_battery = 100;
-            sim_charging = false;
-        }
-    } else {
-        // Draining: decrease by 2% per tick
-        if (sim_battery > 0) sim_battery -= 2;
-        if (sim_battery <= 20) sim_charging = true;  
+    sim_battery += 5;
+    if (sim_battery >= 100) {
+        sim_battery = 100;
     }
-    widget_battery_update(sim_battery, sim_charging);
+    widget_battery_update(sim_battery);
     screen_set_needs_redraw();
 }
 
