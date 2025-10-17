@@ -4,7 +4,6 @@
 #ifdef CONFIG_ZMK_DISPLAY
     // ZMK environment
     #define IS_ZMK 1
-    #define DISPLAY_INVERTED 1
     // keyboard side
     #ifdef ZMK_SPLIT
         #define LEFT_DISPLAY ZMK_SPLIT_ROLE_CENTRAL
@@ -16,7 +15,6 @@
 #else
     // Simulator environment
     #define IS_ZMK 0
-    #define DISPLAY_INVERTED 0
     #include "lvgl/lvgl.h"
 #endif
 
