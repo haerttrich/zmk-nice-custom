@@ -17,11 +17,11 @@
 #define LV_ATTRIBUTE_MEM_ALIGN
 #endif
 
-#ifndef LV_ATTRIBUTE_IMG_TAP_3
-#define LV_ATTRIBUTE_IMG_TAP_3
+#ifndef LV_ATTRIBUTE_IMG_TAP_2
+#define LV_ATTRIBUTE_IMG_TAP_2
 #endif
 
-const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_TAP_3 uint8_t tap_3_map[] = {
+const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_TAP_2 uint8_t tap_2_map[] = {
   0xfe, 0xfe, 0xfe, 0xff, 	/*Color of index 0*/
   0x00, 0x00, 0x00, 0xff, 	/*Color of index 1*/
 
@@ -61,12 +61,12 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_TAP_3 uin
   0x00, 0xf0, 
 };
 
-const lv_img_dsc_t tap_3 = {
+const lv_img_dsc_t tap_2 = {
   .header.cf = LV_IMG_CF_INDEXED_1BIT,
   .header.always_zero = 0,
   .header.reserved = 0,
   .header.w = 14,
   .header.h = 34,
   .data_size = 76,
-  .data = tap_3_map,
+  .data = tap_2_map,
 };
