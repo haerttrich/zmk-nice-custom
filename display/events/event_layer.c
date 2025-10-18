@@ -25,8 +25,6 @@ ZMK_SUBSCRIPTION(layer_listener, zmk_layer_state_changed);
 void event_layer_init(void) {
     uint8_t layer = zmk_keymap_highest_layer_active();
     widget_layer_init(layer);
-    screen_set_needs_redraw();
-    zmk_display_status_screen_update();
 }
 // if right half
 #else

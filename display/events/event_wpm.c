@@ -23,8 +23,6 @@ ZMK_SUBSCRIPTION(wpm_listener, zmk_wpm_state_changed);
 void event_wpm_init(void) {
     uint8_t wpm = zmk_wpm_get_state();
     widget_wpm_init(wpm);
-    screen_set_needs_redraw();
-    zmk_display_status_screen_update();
 }
 
 #else
