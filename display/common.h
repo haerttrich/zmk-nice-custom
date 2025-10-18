@@ -26,7 +26,7 @@
 #define PADDING 4
 
 // Color constants
-#define COLOR_BG lv_color_black()
-#define COLOR_FG lv_color_white()
+#define COLOR_BG lv_color_white()
+#define COLOR_FG lv_color_black()
 
 #endif

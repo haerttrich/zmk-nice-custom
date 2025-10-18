@@ -44,22 +44,22 @@ static void draw_widget(lv_obj_t *canvas, widget_config_t *config) {
             
         case WIDGET_LAYER_INDICATOR:
             widget_layer_indicator_draw(canvas, v);
-            if (!events_initialized) event_layer_init();
+            // if (!events_initialized) event_layer_init();
             break;
             
         case WIDGET_WPM:
             widget_wpm_draw(canvas, v);
-            if (!events_initialized) event_wpm_init();
+            // if (!events_initialized) event_wpm_init();
             break;
             
         case WIDGET_BATTERY:
             widget_battery_draw(canvas, v);
-            if (!events_initialized) event_battery_init();
+            // if (!events_initialized) event_battery_init();
             break;
             
         case WIDGET_SIGNAL:
             widget_signal_draw(canvas, v);
-            if (!events_initialized) event_signal_init();
+            // if (!events_initialized) event_signal_init();
             break;
             
         default:

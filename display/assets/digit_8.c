@@ -22,14 +22,14 @@
 #endif
 
 const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_DIGIT_8 uint8_t digit_8_map[] = {
-  0xff, 0xff, 0xff, 0xff, 	/*Color of index 0*/
+  0xfe, 0xfe, 0xfe, 0xff, 	/*Color of index 0*/
   0x00, 0x00, 0x00, 0xff, 	/*Color of index 1*/
 
-  0x89, 
-  0x76, 
-  0x76, 
   0x76, 
   0x89, 
+  0x89, 
+  0x89, 
+  0x76, 
 };
 
 const lv_img_dsc_t digit_8 = {
