@@ -11,7 +11,7 @@
 #include <zmk/keymap.h>
 
 static int layer_listener(const zmk_event_t *eh) {
-    uint8_t layer = zmk_keymap_highest_layer();
+    uint8_t layer = zmk_keymap_highest_layer_active();
     widget_layer_update(layer);
     screen_set_needs_redraw();
     return ZMK_EV_EVENT_BUBBLE;
@@ -21,7 +21,7 @@ ZMK_LISTENER(layer_listener, layer_listener);
 ZMK_SUBSCRIPTION(layer_listener, zmk_layer_state_changed);
 
 void event_layer_init(void) {
-    uint8_t layer = zmk_keymap_highest_layer();
+    uint8_t layer = zmk_keymap_highest_layer_active();
     widget_layer_init(layer);
 }
 // if right half
