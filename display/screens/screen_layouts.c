@@ -14,7 +14,7 @@
 #include "display/events/event_wpm.h"
 #include "display/events/event_signal.h"
 
-static bool needs_redraw = false;\
+static bool needs_redraw = false;
 static bool layer_event_initialized = false;
 static bool battery_event_initialized = false;
 static bool wpm_event_initialized = false;
@@ -86,12 +86,10 @@ void screen_draw_left(lv_obj_t *canvas) {
     for (uint8_t i = 0; i < DISPLAY_CONFIG.left_screen.widget_count; i++) {
         draw_widget(canvas, (widget_config_t *)&DISPLAY_CONFIG.left_screen.widgets[i]);
     }
-    events_initialized = true;
 }
 
 void screen_draw_right(lv_obj_t *canvas) {
     for (uint8_t i = 0; i < DISPLAY_CONFIG.right_screen.widget_count; i++) {
         draw_widget(canvas, (widget_config_t *)&DISPLAY_CONFIG.right_screen.widgets[i]);
     }
-    events_initialized = true;
 }
