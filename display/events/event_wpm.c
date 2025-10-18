@@ -4,14 +4,16 @@
 #include "display/screens/screen_layouts.h"
 
 #if IS_ZMK && defined(CONFIG_ZMK_WPM)
-/*
+#if !IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
+
 #include <zmk/events/wpm_state_changed.h>
+#include <zmk/wpm.h>
 
 static int wpm_listener(const zmk_event_t *eh) {
-    ARG_UNUSED(eh);
-    const struct zmk_wpm_state_changed *ev = as_zmk_wpm_state_changed(eh);
-    widget_wpm_update(ev->state);
+    uint8_t wpm = zmk_wpm_get_state();
+    widget_wpm_update(wpm);
     screen_set_needs_redraw();
+    zmk_display_status_screen_update();
     return ZMK_EV_EVENT_BUBBLE;
 }
 
@@ -19,11 +21,15 @@ ZMK_LISTENER(wpm_listener, wpm_listener);
 ZMK_SUBSCRIPTION(wpm_listener, zmk_wpm_state_changed);
 
 void event_wpm_init(void) {
-    widget_wpm_init(0);
-} */
+    uint8_t wpm = zmk_wpm_get_state();
+    widget_wpm_init(wpm);
+}
+
+#else
 void event_wpm_init(void) {
     widget_wpm_init(80);
 }
+#endif
 #else
 #include <lvgl.h>
 #include <stdlib.h>

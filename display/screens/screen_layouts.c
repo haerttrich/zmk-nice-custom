@@ -56,8 +56,8 @@ static void draw_widget(lv_obj_t *canvas, widget_config_t *config) {
         case WIDGET_WPM:
             widget_wpm_draw(canvas, v);
             if (!wpm_event_initialized) {
-                // event_wpm_init();  // Uncomment when ready
-                // wpm_event_initialized = true;
+                event_wpm_init();
+                wpm_event_initialized = true;
             }
             break;
             

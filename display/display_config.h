@@ -40,10 +40,11 @@ typedef struct {
     .widgets = { \
         {WIDGET_MAHA_LOGO,        .enabled = true,  .v_position = PADDING+20}, \
         {WIDGET_LAYER_INDICATOR,  .enabled = true,  .v_position = 80}, \
+        {WIDGET_WPM,              .enabled = true,  .v_position = SCREEN_VER-45}, \
         {WIDGET_SIGNAL,           .enabled = true,  .v_position = SCREEN_VER-30}, \
         {WIDGET_BATTERY,          .enabled = true,  .v_position = SCREEN_VER-15}, \
     }, \
-    .widget_count = 4 \
+    .widget_count = 5 \
 }
 
 #define RIGHT_SCREEN_CONFIG { \
