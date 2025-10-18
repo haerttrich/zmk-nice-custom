@@ -36,7 +36,7 @@ static void sim_battery_timer_cb(lv_timer_t *timer) {
 }
 
 void event_battery_init(void) {
-    widget_battery_init(100, false);
+    widget_battery_init(100);
     lv_timer_create(sim_battery_timer_cb, 1000, NULL);
 }
 #endif

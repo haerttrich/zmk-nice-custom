@@ -16,7 +16,7 @@
 #else
     // Simulator environment
     #define IS_ZMK 0
-    #define LEFT_DISPLAY 1  // Default to left for simulator
+    #define LEFT_DISPLAY 0  // Default to left for simulator
     #include "lvgl/lvgl.h"
 #endif
 
