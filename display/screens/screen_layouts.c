@@ -14,8 +14,11 @@
 #include "display/events/event_wpm.h"
 #include "display/events/event_signal.h"
 
-static bool needs_redraw = false;
-static bool events_initialized = false;
+static bool needs_redraw = false;\
+static bool layer_event_initialized = false;
+static bool battery_event_initialized = false;
+static bool wpm_event_initialized = false;
+static bool signal_event_initialized = false;
 
 void screen_set_needs_redraw(void) {
     needs_redraw = true;
@@ -44,22 +47,34 @@ static void draw_widget(lv_obj_t *canvas, widget_config_t *config) {
             
         case WIDGET_LAYER_INDICATOR:
             widget_layer_indicator_draw(canvas, v);
-            // if (!events_initialized) event_layer_init();
+            if (!layer_event_initialized) {
+                event_layer_init();
+                layer_event_initialized = true;
+            }
             break;
             
         case WIDGET_WPM:
             widget_wpm_draw(canvas, v);
-            // if (!events_initialized) event_wpm_init();
+            if (!wpm_event_initialized) {
+                // event_wpm_init();  // Uncomment when ready
+                // wpm_event_initialized = true;
+            }
             break;
             
         case WIDGET_BATTERY:
             widget_battery_draw(canvas, v);
-            // if (!events_initialized) event_battery_init();
+            if (!battery_event_initialized) {
+                // event_battery_init();  // Uncomment when ready
+                // battery_event_initialized = true;
+            }
             break;
             
         case WIDGET_SIGNAL:
             widget_signal_draw(canvas, v);
-            // if (!events_initialized) event_signal_init();
+            if (!signal_event_initialized) {
+                // event_signal_init();  // Uncomment when ready
+                // signal_event_initialized = true;
+            }
             break;
             
         default:
