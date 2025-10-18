@@ -72,8 +72,8 @@ static void draw_widget(lv_obj_t *canvas, widget_config_t *config) {
         case WIDGET_SIGNAL:
             widget_signal_draw(canvas, v);
             if (!signal_event_initialized) {
-                // event_signal_init();  // Uncomment when ready
-                // signal_event_initialized = true;
+                event_signal_init();
+                signal_event_initialized = true;
             }
             break;
             
@@ -86,10 +86,16 @@ void screen_draw_left(lv_obj_t *canvas) {
     for (uint8_t i = 0; i < DISPLAY_CONFIG.left_screen.widget_count; i++) {
         draw_widget(canvas, (widget_config_t *)&DISPLAY_CONFIG.left_screen.widgets[i]);
     }
+
+    screen_set_needs_redraw();
+    zmk_display_status_screen_update();
 }
 
 void screen_draw_right(lv_obj_t *canvas) {
     for (uint8_t i = 0; i < DISPLAY_CONFIG.right_screen.widget_count; i++) {
         draw_widget(canvas, (widget_config_t *)&DISPLAY_CONFIG.right_screen.widgets[i]);
     }
+
+    screen_set_needs_redraw();
+    zmk_display_status_screen_update();
 }
