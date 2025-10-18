@@ -23,17 +23,17 @@ static struct {
 };
 
 // init layer widget
-void widget_layer_indicator_init(uint8_t initial_layer) {
+void widget_layer_init(uint8_t initial_layer) {
     layer_data.current_layer = initial_layer;
 }
 
 // update active layer
-void widget_layer_indicator_update(uint8_t layer) {
+void widget_layer_update(uint8_t layer) {
     if (layer < layer_data.n_layers) layer_data.current_layer = layer;
 }
 
 // draw layer widget
-void widget_layer_indicator_draw(lv_obj_t *canvas, int16_t v) {
+void widget_layer_draw(lv_obj_t *canvas, int16_t v) {
     lv_draw_img_dsc_t img_dsc;
     lv_draw_img_dsc_init(&img_dsc);
 

@@ -46,7 +46,7 @@ static void draw_widget(lv_obj_t *canvas, widget_config_t *config) {
             break;
             
         case WIDGET_LAYER_INDICATOR:
-            widget_layer_indicator_draw(canvas, v);
+            widget_layer_draw(canvas, v);
             if (!layer_event_initialized) {
                 event_layer_init();
                 layer_event_initialized = true;

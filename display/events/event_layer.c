@@ -37,12 +37,12 @@ static uint8_t sim_current_layer = 0;
 
 static void sim_layer_timer_cb(lv_timer_t *timer) {
     sim_current_layer = (sim_current_layer + 1) % 9;
-    widget_layer_indicator_update(sim_current_layer);
+    widget_layer_update(sim_current_layer);
     screen_set_needs_redraw();
 }
 
 void event_layer_init(void) {
-    widget_layer_indicator_init(0);
+    widget_layer_init(0);
     lv_timer_create(sim_layer_timer_cb, 1000, NULL);
 }
 #endif

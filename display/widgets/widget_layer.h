@@ -6,8 +6,8 @@
 #include <stdbool.h>
 
 
-void widget_layer_indicator_init(uint8_t initial_layer);
-void widget_layer_indicator_update(uint8_t layer);
-void widget_layer_indicator_draw(lv_obj_t *canvas, int16_t y);
+void widget_layer_init(uint8_t initial_layer);
+void widget_layer_update(uint8_t layer);
+void widget_layer_draw(lv_obj_t *canvas, int16_t y);
 
 #endif
