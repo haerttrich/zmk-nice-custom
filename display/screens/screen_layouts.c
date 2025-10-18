@@ -64,8 +64,8 @@ static void draw_widget(lv_obj_t *canvas, widget_config_t *config) {
         case WIDGET_BATTERY:
             widget_battery_draw(canvas, v);
             if (!battery_event_initialized) {
-                // event_battery_init();  // Uncomment when ready
-                // battery_event_initialized = true;
+                event_battery_init();
+                battery_event_initialized = true;
             }
             break;
             

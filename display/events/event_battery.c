@@ -4,6 +4,7 @@
 #include "display/screens/screen_layouts.h"
 
 #if IS_ZMK
+
 #include <zmk/events/battery_state_changed.h>
 #include <zmk/battery.h>
 
@@ -11,6 +12,7 @@ static int battery_listener(const zmk_event_t *eh) {
     uint8_t percentage = zmk_battery_state_of_charge();
     widget_battery_update(percentage);
     screen_set_needs_redraw();
+    zmk_display_status_screen_update();
     return ZMK_EV_EVENT_BUBBLE;
 }
 
