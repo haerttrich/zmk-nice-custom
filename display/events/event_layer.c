@@ -14,6 +14,8 @@ static int layer_listener(const zmk_event_t *eh) {
     uint8_t layer = zmk_keymap_highest_layer_active();
     widget_layer_update(layer);
     screen_set_needs_redraw();
+    zmk_display_status_screen_update(); 
+    
     return ZMK_EV_EVENT_BUBBLE;
 }
 
