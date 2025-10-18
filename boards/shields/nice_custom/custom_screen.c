@@ -16,6 +16,7 @@ lv_obj_t *zmk_display_status_screen() {
     // create canvas
     lv_obj_t *canvas = lv_canvas_create(screen);
     lv_canvas_set_buffer(canvas, canvas_buf, SCREEN_VER, SCREEN_HOR, LV_IMG_CF_TRUE_COLOR);
+    lv_canvas_fill_bg(canvas, COLOR_BG, LV_OPA_COVER);
 
 #if LEFT_DISPLAY
     screen_draw_left(canvas);
