@@ -9,11 +9,20 @@
 #include <zmk/events/wpm_state_changed.h>
 #include <zmk/wpm.h>
 
+#if IS_ENABLED(CONFIG_ZMK_SPLIT)
+#include "display/relay/widget_relay.h"
+#endif
+
 static int wpm_listener(const zmk_event_t *eh) {
     uint8_t wpm = zmk_wpm_get_state();
     widget_wpm_update(wpm);
     screen_set_needs_redraw();
     screen_update();
+
+#if IS_ENABLED(CONFIG_ZMK_SPLIT)
+    widget_relay_send_wpm(wpm);
+#endif
+
     return ZMK_EV_EVENT_BUBBLE;
 }
 

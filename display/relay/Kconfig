@@ -1,0 +1,10 @@
+# Copyright (c) 2024 The ZMK Contributors
+# SPDX-License-Identifier: MIT
+
+config NICE_CUSTOM_WIDGET_RELAY
+    bool "Enable widget relay for split keyboards"
+    depends on ZMK_SPLIT
+    default y
+    help
+      Enable relay of widget data (layer, WPM, signal) from central to peripheral
+      for synchronized display on both halves.

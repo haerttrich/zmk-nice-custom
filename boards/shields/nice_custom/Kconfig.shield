@@ -1,2 +1,16 @@
+# Copyright (c) 2024 The ZMK Contributors
+# SPDX-License-Identifier: MIT
+
 config SHIELD_NICE_CUSTOM
     def_bool $(shields_list_contains,nice_custom)
+
+if SHIELD_NICE_CUSTOM
+
+# Display configuration
+config ZMK_DISPLAY
+    default y
+
+# Widget relay for split
+rsource "../../../display/relay/Kconfig"
+
+endif

@@ -19,17 +19,9 @@ display.
 
 customization is possible via a config file `/display/display_config.h`. The file allows
 
-- selection of the widgets to show
-- vertical positioning of the widgets on the screen
-- visibility and positioning can be customized per screen
-
-
-## Supported Environments
-
-Preview your displays with the SDL & LVGL simulator for local development or 
-build the zmk firmware straight ahead with github actions for your board. For 
-both options visit my [zmk-config](https://github.com/haerttrich/zmk-config) 
-repo for detailed instructions.
+- Selection of the widgets to show
+- Vertical positioning of the widgets on the screen
+- Placement of widgets independent of split keyboard side
 
 
 ## Hardware Requirements
@@ -39,21 +31,52 @@ repo for detailed instructions.
 - zmk config available for controller and the display
 
 
+## Usage
+
+1. fork this repo and adjust the `display/display_config.h` file for your widget selection.
+2. include this module into your build with `shield: <BOARD> nice_view_adapter nice_custom` and `module: haerttrich/zmk-nice-custom/main` (if forked use your name handle).
+3. build as used specified by other zmk code
+
+_for the `miryoku_zmk` repo use the `Build Inputs` action and specify aboves parameters in the build options besides your other configs._
+
+
+## Extension
+
+this repo is build to with modularity in mind. A widget consists out of drawing the widget, related events and possibly relaying them, as well as assets that go along with the widget. Since all files follow similar structures, use the included widgets, events, etc as examples. No Modifications to the Makefile, etc should be required.
+
+```
+haerttrich/zmk-nice-custom
+├── display
+│   ├── ...
+│   ├── assets/
+│   │   └── *.c                         <- 1. add the new widget assets like images here (create with lvgl image converter v8 CF_INDEXED_1BIT)
+│   ├── widgets/
+│   │   └── widget_*.[ch]               <- 2. add the new widgets draw, init, and update functions
+│   ├── events/
+│   │   └── event_*.[ch]                <- 3. add the new widgets events to trigger changes here
+│   ├── screens/
+│   │   ├── ...
+│   │   └── screen_layouts.c            <- 4. include new widget into draw_widget switch
+│   └── relay/                          
+│       ├── widget_relay_service.h     
+│       ├── widget_relay_service.c      <- 5. add data transfer logic from left to right side 
+│       ├── widget_relay.h              
+│       └── widget_relay.c              <- 5. add data transfer logic from left to right side
+└── ...
+```
+
+
 ## Future Features
 
 - display size independence
-- imporved customization options
 - documentation of all features
 
 
 ## Credits
 
-This repository is strongly inspired by the two related repositories
+This repository is strongly inspired by the related repositories
 
-- [zmk-nice-oled](https://github.com/mctechnology17/zmk-nice-oled)
-- [zmk-oled-adapter](https://github.com/mctechnology17/zmk-oled-adapter)
-
-Additionally i have started out building the custom displays for my 
-corne custom keyboard with miryoku layout. The logo is taken from there. 
-Credits for the logo creation belongs to Manna Harbour and his 
-[Miryoku](https://github.com/manna-harbour/miryoku) Repository.
+- [zmk-nice-oled](https://github.com/mctechnology17/zmk-nice-oled) contains custom widgets and animated widgets.
+- [zmk-oled-adapter](https://github.com/mctechnology17/zmk-oled-adapter) contains custom widgets.
+- [zmk-split-peripheral-output-relay](https://github.com/badjeff/zmk-split-peripheral-output-relay) contains split keyborad communication via relay.
+- [miryoku_zmk](https://github.com/manna-harbour/miryoku_zmk) the keymap i've build the displays for. Creator of the miryoku logo.
