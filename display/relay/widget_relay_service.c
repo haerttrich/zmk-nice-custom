@@ -1,6 +1,7 @@
 #include <zephyr/kernel.h>  
 #include <zephyr/bluetooth/uuid.h>
 #include <zephyr/bluetooth/conn.h>
+#include <zephyr/bluetooth/gatt.h>
 
 #include "widget_relay_service.h"
 
@@ -54,8 +55,6 @@ int widget_relay_service_init_peripheral(widget_relay_callback_t callback) {
 #else
 // ============ CENTRAL SIDE ============
 
-#include <zmk/split/bluetooth/central.h>
-
 static struct bt_gatt_discover_params discover_params;
 static struct bt_conn *relay_conn = NULL;
 static uint16_t relay_char_handle = 0;
@@ -77,17 +76,14 @@ static uint8_t discover_func(struct bt_conn *conn,
     return BT_GATT_ITER_CONTINUE;
 }
 
-// Callback when split peripheral connects
-static void on_split_peripheral_connected(struct bt_conn *conn) {
-    if (relay_conn) {
+// Work queue for delayed discovery
+static struct k_work_delayable discovery_work;
+
+static void discovery_work_handler(struct k_work *work) {
+    if (!relay_conn) {
         return;
     }
     
-    relay_conn = conn;
-    discovery_complete = false;
-    relay_char_handle = 0;
-    
-    // Discover the characteristic
     memset(&discover_params, 0, sizeof(discover_params));
     discover_params.uuid = &widget_relay_char_uuid.uuid;
     discover_params.func = discover_func;
@@ -95,11 +91,26 @@ static void on_split_peripheral_connected(struct bt_conn *conn) {
     discover_params.end_handle = BT_ATT_LAST_ATTRIBUTE_HANDLE;
     discover_params.type = BT_GATT_DISCOVER_CHARACTERISTIC;
 
-    bt_gatt_discover(conn, &discover_params);
+    bt_gatt_discover(relay_conn, &discover_params);
 }
 
-// Callback when split peripheral disconnects
-static void on_split_peripheral_disconnected(struct bt_conn *conn) {
+// Callback when any BLE device connects
+static void on_connected(struct bt_conn *conn, uint8_t err) {
+    if (err || relay_conn) {
+        return;
+    }
+    
+    // Assume this is the split peripheral connection
+    relay_conn = conn;
+    discovery_complete = false;
+    relay_char_handle = 0;
+    
+    // Delay discovery slightly to let connection stabilize
+    k_work_schedule(&discovery_work, K_MSEC(500));
+}
+
+// Callback when device disconnects
+static void on_disconnected(struct bt_conn *conn, uint8_t reason) {
     if (conn == relay_conn) {
         relay_conn = NULL;
         relay_char_handle = 0;
@@ -108,13 +119,13 @@ static void on_split_peripheral_disconnected(struct bt_conn *conn) {
 }
 
 // Connection callbacks
-static struct bt_conn_cb conn_callbacks = {
-    .connected = on_split_peripheral_connected,
-    .disconnected = on_split_peripheral_disconnected,
+BT_CONN_CB_DEFINE(relay_conn_callbacks) = {
+    .connected = on_connected,
+    .disconnected = on_disconnected,
 };
 
 int widget_relay_service_init_central(void) {
-    bt_conn_cb_register(&conn_callbacks);
+    k_work_init_delayable(&discovery_work, discovery_work_handler);
     return 0;
 }
 
