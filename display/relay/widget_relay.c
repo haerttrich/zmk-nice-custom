@@ -1,11 +1,7 @@
-#include <zephyr/kernel.h> 
-#include <zephyr/logging/log.h> 
+#include <zephyr/kernel.h>  
 
-#include "display/relay/widget_relay.h"
-#include "display/relay/widget_relay_service.h"
-
-
-LOG_MODULE_REGISTER(widget_relay_api, CONFIG_ZMK_LOG_LEVEL);
+#include "widget_relay.h"
+#include "widget_relay_service.h"
 
 #if IS_ENABLED(CONFIG_ZMK_SPLIT) && !IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 // ============ PERIPHERAL SIDE ============
@@ -17,8 +13,6 @@ LOG_MODULE_REGISTER(widget_relay_api, CONFIG_ZMK_LOG_LEVEL);
 
 // Callback when data arrives from central
 static void on_relay_data_received(struct widget_relay_data *data) {
-    LOG_INF("Relay received - type: %d, value: %d", data->type, data->value);
-
     switch (data->type) {
         case WIDGET_RELAY_TYPE_LAYER:
             widget_layer_update(data->value);
@@ -41,7 +35,6 @@ static void on_relay_data_received(struct widget_relay_data *data) {
             break;
         
         default:
-            LOG_WRN("Unknown relay type: %d", data->type);
             return;
     }
 
@@ -52,7 +45,6 @@ static void on_relay_data_received(struct widget_relay_data *data) {
 
 void widget_relay_init(void) {
     widget_relay_service_init_peripheral(on_relay_data_received);
-    LOG_INF("Widget relay initialized (peripheral)");
 }
 
 #else
@@ -60,7 +52,6 @@ void widget_relay_init(void) {
 
 void widget_relay_init(void) {
     widget_relay_service_init_central();
-    LOG_INF("Widget relay initialized (central)");
 }
 
 void widget_relay_send_layer(uint8_t layer) {
