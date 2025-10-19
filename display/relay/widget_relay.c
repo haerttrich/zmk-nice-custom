@@ -1,7 +1,10 @@
+#include <zephyr/kernel.h> 
+#include <zephyr/logging/log.h> 
+
 #include "display/relay/widget_relay.h"
 #include "display/relay/widget_relay_service.h"
 
-#include <zephyr/logging/log.h>
+
 LOG_MODULE_REGISTER(widget_relay_api, CONFIG_ZMK_LOG_LEVEL);
 
 #if IS_ENABLED(CONFIG_ZMK_SPLIT) && !IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)

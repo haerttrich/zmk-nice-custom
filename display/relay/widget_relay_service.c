@@ -1,5 +1,6 @@
 #include <zephyr/bluetooth/uuid.h>
 #include <zephyr/logging/log.h>
+#include <zephyr/kernel.h>
 
 #include "display/relay/widget_relay_service.h"
 
