@@ -1,7 +1,7 @@
-#include "display/events/event_signal.h"
 #include "display/common.h"
+#include "display/events/event_signal.h"
 #include "display/widgets/widget_signal.h"
-#include "display/screens/screen_layouts.h"
+#include "display/screens/screen_draw.h"
 
 #if IS_ZMK
 #if !IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
@@ -20,7 +20,7 @@ static int usb_listener(const zmk_event_t *eh) {
     bool connected = zmk_usb_is_powered();
     widget_signal_update_usb(connected);
     screen_set_needs_redraw();
-    zmk_display_status_screen_update();
+    screen_update();
     return ZMK_EV_EVENT_BUBBLE;
 }
 
@@ -33,7 +33,7 @@ static int ble_listener(const zmk_event_t *eh) {
     bool connected = zmk_ble_active_profile_is_connected();
     widget_signal_update_conn(connected);
     screen_set_needs_redraw();
-    zmk_display_status_screen_update();
+    screen_update();
     return ZMK_EV_EVENT_BUBBLE;
 }
 
@@ -45,7 +45,7 @@ static int device_listener(const zmk_event_t *eh) {
     uint8_t device = zmk_ble_active_profile_index();
     widget_signal_update_device(device + 1);
     screen_set_needs_redraw();
-    zmk_display_status_screen_update();
+    screen_update();
     return ZMK_EV_EVENT_BUBBLE;
 }
 
@@ -61,11 +61,14 @@ void event_signal_init(void) {
     bool connected = zmk_ble_active_profile_is_connected();
     uint8_t device = zmk_ble_active_profile_index();
     widget_signal_init(usb_active, connected, device + 1);
+    screen_set_needs_redraw();
 }
 
 #else
 void event_signal_init(void) {
     widget_signal_init(false, true, 1);
+    screen_set_needs_redraw();
+    screen_update();
 }
 #endif
 #else
@@ -81,6 +84,7 @@ static void sim_signal_timer_cb(lv_timer_t *timer) {
     widget_signal_update_usb(usb_conn);
     widget_signal_update_device(device);
     screen_set_needs_redraw();
+    screen_update(); 
 }
 
 void event_signal_init(void) {

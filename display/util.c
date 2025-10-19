@@ -1,6 +1,9 @@
 #include "display/util.h"
 #include "display/common.h"
 
+
+// helper functions for coordinate conversion
+
 pos_t coordinates_from_vh(int16_t v, int16_t h) {
     int16_t x = SCREEN_VER-v-1;
     int16_t y = h;
@@ -18,6 +21,9 @@ pos_t coordinates_from_xy(int16_t x, int16_t y) {
 pos_t coordinates_shift(pos_t pos, int16_t vshift, int16_t hshift) {
     return coordinates_from_vh(pos.v+vshift, pos.h+hshift);
 }
+
+
+// helper functions to draw 3 digit numbers
 
 LV_IMG_DECLARE(digit_0);
 LV_IMG_DECLARE(digit_1);

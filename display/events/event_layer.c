@@ -1,10 +1,9 @@
-#include "display/events/event_layer.h"
 #include "display/common.h"
+#include "display/events/event_layer.h"
 #include "display/widgets/widget_layer.h"
-#include "display/screens/screen_layouts.h"
+#include "display/screens/screen_draw.h"
 
 #if IS_ZMK
-// if left half
 #if !IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 
 #include <zmk/events/layer_state_changed.h>
@@ -14,7 +13,7 @@ static int layer_listener(const zmk_event_t *eh) {
     uint8_t layer = zmk_keymap_highest_layer_active();
     widget_layer_update(layer);
     screen_set_needs_redraw();
-    zmk_display_status_screen_update(); 
+    screen_update(); 
     
     return ZMK_EV_EVENT_BUBBLE;
 }
@@ -25,11 +24,12 @@ ZMK_SUBSCRIPTION(layer_listener, zmk_layer_state_changed);
 void event_layer_init(void) {
     uint8_t layer = zmk_keymap_highest_layer_active();
     widget_layer_init(layer);
+    screen_set_needs_redraw();
 }
-// if right half
 #else
 void event_layer_init(void) {
     widget_layer_indicator_init(0);
+    screen_set_needs_redraw();
 }
 #endif
 #else
@@ -41,6 +41,7 @@ static void sim_layer_timer_cb(lv_timer_t *timer) {
     sim_current_layer = (sim_current_layer + 1) % 9;
     widget_layer_update(sim_current_layer);
     screen_set_needs_redraw();
+    screen_update(); 
 }
 
 void event_layer_init(void) {

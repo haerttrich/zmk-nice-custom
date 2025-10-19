@@ -1,6 +1,8 @@
-#include "screen_layouts.h"
 #include "display/common.h"
 #include "display/display_config.h"
+
+#include "display/screens/screen_layout.h"
+#include "display/screens/screen_draw.h"
 
 #include "display/widgets/widget_layer.h"
 #include "display/widgets/widget_battery.h"
@@ -14,23 +16,12 @@
 #include "display/events/event_wpm.h"
 #include "display/events/event_signal.h"
 
-static bool needs_redraw = false;
+
 static bool layer_event_initialized = false;
 static bool battery_event_initialized = false;
 static bool wpm_event_initialized = false;
 static bool signal_event_initialized = false;
 
-void screen_set_needs_redraw(void) {
-    needs_redraw = true;
-}
-
-bool screen_needs_redraw(void) {
-    return needs_redraw;
-}
-
-void screen_clear_redraw_flag(void) {
-    needs_redraw = false;
-}
 
 static void draw_widget(lv_obj_t *canvas, widget_config_t *config) {
     if (!config->enabled) return;
@@ -84,11 +75,11 @@ static void draw_widget(lv_obj_t *canvas, widget_config_t *config) {
 
 void screen_draw_left(lv_obj_t *canvas) {
     for (uint8_t i = 0; i < DISPLAY_CONFIG.left_screen.widget_count; i++) {
-        draw_widget(canvas, (widget_config_t *)&DISPLAY_CONFIG.left_screen.widgets[i]);
+        widget_config_t *config = (widget_config_t *)&DISPLAY_CONFIG.left_screen.widgets[i];
+        draw_widget(canvas, config);
     }
-
+    
     screen_set_needs_redraw();
-    zmk_display_status_screen_update();
 }
 
 void screen_draw_right(lv_obj_t *canvas) {
@@ -97,5 +88,4 @@ void screen_draw_right(lv_obj_t *canvas) {
     }
 
     screen_set_needs_redraw();
-    zmk_display_status_screen_update();
 }

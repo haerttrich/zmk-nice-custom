@@ -1,10 +1,9 @@
-#include "display/events/event_battery.h"
 #include "display/common.h"
+#include "display/events/event_battery.h"
 #include "display/widgets/widget_battery.h"
-#include "display/screens/screen_layouts.h"
+#include "display/screens/screen_draw.h"
 
 #if IS_ZMK
-
 #include <zmk/events/battery_state_changed.h>
 #include <zmk/battery.h>
 
@@ -12,7 +11,7 @@ static int battery_listener(const zmk_event_t *eh) {
     uint8_t percentage = zmk_battery_state_of_charge();
     widget_battery_update(percentage);
     screen_set_needs_redraw();
-    zmk_display_status_screen_update();
+    screen_update();
     return ZMK_EV_EVENT_BUBBLE;
 }
 
@@ -22,6 +21,7 @@ ZMK_SUBSCRIPTION(battery_listener, zmk_battery_state_changed);
 void event_battery_init(void) {
     uint8_t percentage = zmk_battery_state_of_charge();
     widget_battery_init(percentage);
+    screen_set_needs_redraw();
 }
 #else
 #include <lvgl.h>
@@ -35,6 +35,7 @@ static void sim_battery_timer_cb(lv_timer_t *timer) {
     }
     widget_battery_update(sim_battery);
     screen_set_needs_redraw();
+    screen_update(); 
 }
 
 void event_battery_init(void) {
