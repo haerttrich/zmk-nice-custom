@@ -3,7 +3,7 @@
 #include "display/widgets/widget_layer.h"
 #include "display/screens/screen_draw.h"
 
-#if IS_ZMK
+#ifdef CONFIG_ZMK_DISPLAY
 #if !IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 
 #include <zmk/events/layer_state_changed.h>

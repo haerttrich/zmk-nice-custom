@@ -3,7 +3,7 @@
 #include "display/widgets/widget_wpm.h"
 #include "display/screens/screen_draw.h"
 
-#if IS_ZMK && defined(CONFIG_ZMK_WPM)
+#ifdef CONFIG_ZMK_DISPLAY
 #if !IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 
 #include <zmk/events/wpm_state_changed.h>

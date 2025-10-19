@@ -3,7 +3,7 @@
 #include "display/widgets/widget_battery.h"
 #include "display/screens/screen_draw.h"
 
-#if IS_ZMK
+#ifdef CONFIG_ZMK_DISPLAY
 #include <zmk/events/battery_state_changed.h>
 #include <zmk/battery.h>
 
