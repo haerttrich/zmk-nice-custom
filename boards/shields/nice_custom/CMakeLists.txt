@@ -10,7 +10,6 @@ file(GLOB SCREEN_SOURCES "${DISPLAY_DIR}/screens/*.c")
 file(GLOB WIDGET_SOURCES "${DISPLAY_DIR}/widgets/*.c")
 file(GLOB EVENT_SOURCES "${DISPLAY_DIR}/events/*.c")
 file(GLOB ASSET_SOURCES "${DISPLAY_DIR}/assets/*.c")
-file(GLOB RELAY_SOURCES "${DISPLAY_DIR}/relay/*.c")
 
 # Add util.c
 set(UTIL_SOURCE "${DISPLAY_DIR}/util.c")
@@ -26,7 +25,6 @@ target_sources(app PRIVATE
     ${WIDGET_SOURCES}
     ${EVENT_SOURCES}
     ${ASSET_SOURCES}
-    ${RELAY_SOURCES}
 )
 
 # Include paths for headers
@@ -37,5 +35,4 @@ target_include_directories(app PRIVATE
     ${DISPLAY_DIR}/events
     ${DISPLAY_DIR}/screens
     ${DISPLAY_DIR}/assets
-    ${DISPLAY_DIR}/relay
 )

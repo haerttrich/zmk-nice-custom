@@ -13,8 +13,4 @@ lv_obj_t *zmk_display_status_screen() {
 
 void zmk_display_status_screen_init(void) {
     screen_init();
-
-// #if IS_ENABLED(CONFIG_ZMK_SPLIT)
-//     widget_relay_init();
-// #endif
 }

@@ -47,19 +47,19 @@ void widget_signal_draw(lv_obj_t *canvas, int16_t v) {
     lv_canvas_draw_img(canvas, pos_sig.x, pos_sig.y, &sig, &img_dsc);
 
     if (signal_data.usb) {
-        pos_t pos_usb = coordinates_from_vh(v+9, SCREEN_HOR-PADDING-18);
+        pos_t pos_usb = coordinates_from_vh(v+11, SCREEN_HOR-PADDING-18);
         lv_canvas_draw_img(canvas, pos_usb.x, pos_usb.y, &usb, &img_dsc);
     } else if (signal_data.connected) {
         pos_t pos_dev = coordinates_from_vh(v+9, SCREEN_HOR-PADDING-6-18-2);
         draw_number(canvas, signal_data.device, pos_dev);
 
-        pos_t pos_bt = coordinates_from_vh(v+9, SCREEN_HOR-PADDING-6);
+        pos_t pos_bt = coordinates_from_vh(v+11, SCREEN_HOR-PADDING-6);
         lv_canvas_draw_img(canvas, pos_bt.x, pos_bt.y, &bluetooth, &img_dsc);
     } else {
         pos_t pos_dev = coordinates_from_vh(v+9, SCREEN_HOR-PADDING-6-18-2);
         draw_number(canvas, signal_data.device, pos_dev);
 
-        pos_t pos_bt = coordinates_from_vh(v+9, SCREEN_HOR-PADDING-6);
+        pos_t pos_bt = coordinates_from_vh(v+11, SCREEN_HOR-PADDING-6);
         lv_canvas_draw_img(canvas, pos_bt.x, pos_bt.y, &bluetooth, &img_dsc);
     }
 }

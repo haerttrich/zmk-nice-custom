@@ -38,10 +38,10 @@ typedef struct {
 // USER CONFIGURATION - Edit this section
 #define LEFT_SCREEN_CONFIG { \
     .widgets = { \
-        {WIDGET_MAHA_LOGO,        .enabled = true,  .v_position = PADDING+20}, \
-        {WIDGET_LAYER_INDICATOR,  .enabled = true,  .v_position = 80}, \
-        {WIDGET_WPM,              .enabled = true,  .v_position = SCREEN_VER-45}, \
-        {WIDGET_SIGNAL,           .enabled = true,  .v_position = SCREEN_VER-30}, \
+        {WIDGET_SIGNAL,           .enabled = true,  .v_position = PADDING+2}, \
+        {WIDGET_MAHA_LOGO,        .enabled = true,  .v_position = 45}, \
+        {WIDGET_LAYER_INDICATOR,  .enabled = true,  .v_position = 85}, \
+        {WIDGET_WPM,              .enabled = true,  .v_position = SCREEN_VER-30}, \
         {WIDGET_BATTERY,          .enabled = true,  .v_position = SCREEN_VER-15}, \
     }, \
     .widget_count = 5 \
@@ -50,9 +50,7 @@ typedef struct {
 #define RIGHT_SCREEN_CONFIG { \
     .widgets = { \
         {WIDGET_MIRYOKU_LOGO,     .enabled = true,  .v_position = 4}, \
-        {WIDGET_LAYER_INDICATOR,  .enabled = true,  .v_position = 80}, \
-        {WIDGET_WPM,              .enabled = true,  .v_position = SCREEN_VER-45}, \
-        {WIDGET_SIGNAL,           .enabled = true,  .v_position = SCREEN_VER-30}, \
+        {WIDGET_LAYER_INDICATOR,  .enabled = true,  .v_position = 85}, \
         {WIDGET_BATTERY,          .enabled = true,  .v_position = SCREEN_VER-15}, \
     }, \
     .widget_count = 5 \

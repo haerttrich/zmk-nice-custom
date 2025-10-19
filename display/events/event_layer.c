@@ -9,19 +9,11 @@
 #include <zmk/events/layer_state_changed.h>
 #include <zmk/keymap.h>
 
-#if IS_ENABLED(CONFIG_ZMK_SPLIT)
-#include "display/relay/widget_relay.h"
-#endif
-
 static int layer_listener(const zmk_event_t *eh) {
     uint8_t layer = zmk_keymap_highest_layer_active();
     widget_layer_update(layer);
     screen_set_needs_redraw();
     screen_update(); 
-
-#if IS_ENABLED(CONFIG_ZMK_SPLIT)
-    widget_relay_send_layer(layer);
-#endif
     
     return ZMK_EV_EVENT_BUBBLE;
 }
@@ -35,8 +27,28 @@ void event_layer_init(void) {
     screen_set_needs_redraw();
 }
 #else
+// void event_layer_init(void) {
+//     widget_layer_init(0); 
+//     screen_set_needs_redraw();
+// }
+#include <zmk/events/layer_state_changed.h>
+#include <zmk/keymap.h>
+
+static int layer_listener(const zmk_event_t *eh) {
+    uint8_t layer = zmk_keymap_highest_layer_active();
+    widget_layer_update(layer);
+    screen_set_needs_redraw();
+    screen_update(); 
+    
+    return ZMK_EV_EVENT_BUBBLE;
+}
+
+ZMK_LISTENER(layer_listener, layer_listener);
+ZMK_SUBSCRIPTION(layer_listener, zmk_layer_state_changed);
+
 void event_layer_init(void) {
-    widget_layer_init(0); 
+    uint8_t layer = zmk_keymap_highest_layer_active();
+    widget_layer_init(layer);
     screen_set_needs_redraw();
 }
 #endif

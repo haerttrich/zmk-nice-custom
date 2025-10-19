@@ -14,10 +14,6 @@
 #include <zmk/usb.h>
 #endif
 
-#if IS_ENABLED(CONFIG_ZMK_SPLIT)
-#include "display/relay/widget_relay.h"
-#endif
-
 // USB connection listener
 #if IS_ENABLED(CONFIG_USB_DEVICE_STACK)
 static int usb_listener(const zmk_event_t *eh) {
@@ -25,10 +21,6 @@ static int usb_listener(const zmk_event_t *eh) {
     widget_signal_update_usb(connected);
     screen_set_needs_redraw();
     screen_update();
-
-#if IS_ENABLED(CONFIG_ZMK_SPLIT)
-    widget_relay_send_signal_usb(connected);
-#endif
 
     return ZMK_EV_EVENT_BUBBLE;
 }
@@ -44,10 +36,6 @@ static int ble_listener(const zmk_event_t *eh) {
     screen_set_needs_redraw();
     screen_update();
 
-#if IS_ENABLED(CONFIG_ZMK_SPLIT)
-    widget_relay_send_signal_ble(connected);
-#endif
-
     return ZMK_EV_EVENT_BUBBLE;
 }
 
@@ -60,11 +48,6 @@ static int device_listener(const zmk_event_t *eh) {
     widget_signal_update_device(device + 1);
     screen_set_needs_redraw();
     screen_update();
-
-// TODO: use correct function
-#if IS_ENABLED(CONFIG_ZMK_SPLIT)
-    widget_relay_send_signal_profile(device + 1);
-#endif
 
     return ZMK_EV_EVENT_BUBBLE;
 }
