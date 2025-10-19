@@ -37,7 +37,7 @@ void event_wpm_init(void) {
 
 #else
 void event_wpm_init(void) {
-    widget_wpm_init(80);
+    widget_wpm_init(0);
     screen_set_needs_redraw();
 }
 #endif

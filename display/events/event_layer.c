@@ -36,7 +36,7 @@ void event_layer_init(void) {
 }
 #else
 void event_layer_init(void) {
-    widget_layer_indicator_init(0);
+    widget_layer_init(0); 
     screen_set_needs_redraw();
 }
 #endif

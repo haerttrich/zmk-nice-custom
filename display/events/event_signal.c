@@ -88,7 +88,6 @@ void event_signal_init(void) {
 void event_signal_init(void) {
     widget_signal_init(false, true, 1);
     screen_set_needs_redraw();
-    screen_update();
 }
 #endif
 #else
