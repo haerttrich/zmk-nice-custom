@@ -8,5 +8,6 @@ lv_obj_t *zmk_display_status_screen() {
 }
 
 void zmk_display_status_screen_init(void) {
+    k_sleep(K_MSEC(500));
     screen_init();
 }
