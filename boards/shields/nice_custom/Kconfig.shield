@@ -10,6 +10,10 @@ if SHIELD_NICE_CUSTOM
 config ZMK_DISPLAY
     default y
 
+config ZMK_WPM
+    default y if (!ZMK_SPLIT || ZMK_SPLIT_ROLE_CENTRAL)
+    default n
+
 # Widget relay for split
 rsource "../../../display/relay/Kconfig"
 
