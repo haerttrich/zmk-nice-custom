@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <zephyr/kernel.h>  
 #include <zmk/display.h>
 #include "display/screens/screen_draw.h"
 
