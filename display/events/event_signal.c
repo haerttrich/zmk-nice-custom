@@ -64,13 +64,11 @@ void event_signal_init(void) {
     bool connected = zmk_ble_active_profile_is_connected();
     uint8_t device = zmk_ble_active_profile_index();
     widget_signal_init(usb_active, connected, device + 1);
-    screen_set_needs_redraw();
 }
 
 #else
 void event_signal_init(void) {
     widget_signal_init(false, true, 1);
-    screen_set_needs_redraw();
 }
 #endif
 #else

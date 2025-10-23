@@ -24,12 +24,10 @@ ZMK_SUBSCRIPTION(layer_listener, zmk_layer_state_changed);
 void event_layer_init(void) {
     uint8_t layer = zmk_keymap_highest_layer_active();
     widget_layer_init(layer);
-    screen_set_needs_redraw();
 }
 #else
 void event_layer_init(void) {
     widget_layer_init(0); 
-    screen_set_needs_redraw();
 }
 #endif
 #else

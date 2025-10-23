@@ -7,4 +7,7 @@
 void screen_draw_left(lv_obj_t *canvas);
 void screen_draw_right(lv_obj_t *canvas);
 
+void screen_init_events_left(void);
+void screen_init_events_right(void);
+
 #endif

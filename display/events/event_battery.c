@@ -21,7 +21,6 @@ ZMK_SUBSCRIPTION(battery_listener, zmk_battery_state_changed);
 void event_battery_init(void) {
     uint8_t percentage = zmk_battery_state_of_charge();
     widget_battery_init(percentage);
-    screen_set_needs_redraw();
 }
 #else
 #include <lvgl.h>

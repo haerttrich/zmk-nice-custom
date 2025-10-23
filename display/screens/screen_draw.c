@@ -1,15 +1,11 @@
 #include <lvgl.h>
-
 #include "display/common.h"
 #include "display/screens/screen_draw.h"
 #include "display/screens/screen_layout.h"
 
-
 static lv_color_t canvas_buf[SCREEN_VER * SCREEN_HOR];
 static lv_obj_t *status_canvas = NULL; 
-
 static bool needs_redraw = false;
-
 
 void screen_set_needs_redraw(void) {
     needs_redraw = true;
@@ -55,7 +51,16 @@ void screen_update(void) {
 }
 
 void screen_init(void) {
+#if LEFT_DISPLAY
+    screen_init_events_left();
+#else
+    screen_init_events_right();
+#endif
+    
+#ifdef CONFIG_ZMK_DISPLAY
+    k_msleep(50);
+#endif
+    
     lv_obj_t *screen = screen_display();
     lv_scr_load(screen);
 }
-

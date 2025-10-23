@@ -43,7 +43,7 @@ typedef struct {
         {WIDGET_LAYER_INDICATOR,  .enabled = true,  .v_position = 80}, \
         {WIDGET_WPM,              .enabled = true,  .v_position = SCREEN_VER-15}, \
     }, \
-    .widget_count = 5 \
+    .widget_count = 4 \
 }
 
 #define RIGHT_SCREEN_CONFIG { \
